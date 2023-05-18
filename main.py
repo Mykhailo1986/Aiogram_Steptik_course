@@ -1,35 +1,45 @@
-import requests
-import time
-from config import *
 
-API_URL: str = 'https://api.telegram.org/bot'
-BOT_TOKEN: str = TOKEN
-API_CATS_URL: str = 'https://api.thecatapi.com/v1/images/search'
-ERROR_TEXT: str = 'Here is gonna be a cat :('
-MAX_COUNTER: int = 100
+from config import TOKEN
+from aiogram import Bot, Dispatcher
+from aiogram.filters import Command
+from aiogram.types import Message
 
-offset: int = -2
-counter: int = 0
-chat_id: int
-cat_link: str
+# Замість BOT TOKEN HERE потрібно вставити токен вашого бота, отриманого від @BotFather
+API_TOKEN: str = TOKEN
 
-while counter < MAX_COUNTER:
+# Створюємо об'єкти бота і диспетчера
+bot: Bot = Bot(token=API_TOKEN)
+dp: Dispatcher = Dispatcher()
 
-    print('attempt =', counter)
 
-    updates = requests.get(f'{API_URL}{BOT_TOKEN}/getUpdates?offset={offset+1}').json()
+# Цей хендлер буде викликаний на команду "/start"
 
-    if updates['result']:
-        for result in updates['result']:
-            offset = result['update_id']
-            chat_id = result['message']['from']['id']
-            cat_response = requests.get(API_CATS_URL)
-            if cat_response.status_code == 200:
-                cat_link = cat_response.json()[0]['url']
-                print(cat_link)
-                requests.get(f'{API_URL}{BOT_TOKEN}/sendPhoto?chat_id={chat_id}&photo={cat_link}')
-            else:
-                requests.get(f'{API_URL}{BOT_TOKEN}/sendMessage?chat_id={chat_id}&text={ERROR_TEXT}')
+async def process_start_command(message: Message):
+    await message.answer('Привіт!\nМене звуть Ехо-бот!\nНапиши мені щось')
 
-    time.sleep(1)
-    counter += 1
+
+# Цей хендлер буде викликаний на команду "/help"
+
+async def process_help_command(message: Message):
+    await message.answer('Напиши мені щось і відповім тобі твоє повідомлення')
+
+
+# Цей хендлер буде викликаний на будь-які ваші текстові повідомлення,
+# окрім команд "/start" і "/help"
+
+async def send_echo(message: Message):
+    text: str = f"Усі кажуть {message.text.lower()}"
+
+    await message.reply(text=text)
+    # await bot.send_message(chat_id='ID чи назва чату', text='текст')
+    # await bot.send_message(message.chat.id, message.text)
+
+
+
+# Реєструємо хендлери
+dp.message.register(process_start_command, Command(commands=["start"]))
+dp.message.register(process_help_command, Command(commands=['help']))
+dp.message.register(send_echo)
+
+if __name__ == '__main__':
+    dp.run_polling(bot)
