@@ -1,11 +1,9 @@
 from aiogram import Bot, Dispatcher
-from aiogram.filters import Command, Text
 from aiogram.types import Message
-from aiogram.types import ContentType
-from aiogram import F
-import pprint
-from config import
+from aiogram.filters import Text, Command
+from config import TOKEN
 from functions import users, get_random_number
+from aiogram import F
 
 # Замість BOT TOKEN HERE потрібно вставити токен вашого бота, отриманого від @BotFather
 API_TOKEN: str = TOKEN
@@ -56,6 +54,7 @@ async def process_stat_command(message: Message):
         f'Усього ігр зіграно: {users[message.from_user.id]["total_games"]}\n'
         f'З них виграно: {users[message.from_user.id]["wins"]}'
     )
+@dp.message(F.text(contains="бот"))
 
 # Цей хендлер буде викликаний на команду  "/cancel"
 @dp.message(Command(commands=["cancel"]))
