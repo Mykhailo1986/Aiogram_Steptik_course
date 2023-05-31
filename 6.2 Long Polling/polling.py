@@ -1,6 +1,10 @@
 import requests
 import time
-from ..
+import sys
+sys.path.append(".")
+from config import TOKEN
+
+
 API_URL: str = 'https://api.telegram.org/bot'
 BOT_TOKEN: str = TOKEN
 offset: int = -2
