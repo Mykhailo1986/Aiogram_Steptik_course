@@ -17,11 +17,11 @@ dp: Dispatcher = Dispatcher()
 
 # Генерируем список с кнопками
 buttons_1: list[KeyboardButton] = [
-    KeyboardButton(text=f'Кнопка {i}') for i in range(1, 31)]
+    KeyboardButton(text=f'{i}') for i in range(1, 31)]
 
 # Генерируем список с кнопками
 buttons_2: list[KeyboardButton] = [
-    KeyboardButton(text=f'Кнопка {i}') for i in range(31, 61)]
+    KeyboardButton(text=f'{i}') for i in range(31, 61)]
 
 # Составляем список списков для будущей клавиатуры
 keyboard: list[list[KeyboardButton]] = [buttons_1,
