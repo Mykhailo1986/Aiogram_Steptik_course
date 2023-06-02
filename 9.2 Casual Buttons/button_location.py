@@ -15,14 +15,21 @@ API_TOKEN: str = TOKEN
 bot: Bot = Bot(token=API_TOKEN)
 dp: Dispatcher = Dispatcher()
 
-# Создаем объекты кнопок
-keyboard: list[list[KeyboardButton]] = [[KeyboardButton(
-    text=f'Кнопка {j * 3 + i}') for i in range(1, 4)] for j in range(3)]
+# Генерируем список с кнопками
+buttons: list[KeyboardButton] = [
+    KeyboardButton(text=f'Кнопка {i}') for i in range(1, 10)]
 
-# Создаем объект клавиатуры, добавляя в него кнопки
+# Составляем список списков для будущей клавиатуры
+keyboard: list[list[KeyboardButton]] = [[buttons[0]],
+                                        buttons[1:3],
+                                        buttons[3:6],
+                                        buttons[6:8],
+                                        [buttons[8]]]
+
+# Создаем объект клавиатуры, добавляя в него список списков с кнопками
 my_keyboard: ReplyKeyboardMarkup = ReplyKeyboardMarkup(
-                        keyboard=keyboard,
-                        resize_keyboard=True)
+                                        keyboard=keyboard,
+                                        resize_keyboard=True)
 
 # Этот хэндлер будет срабатывать на команду "/start"
 # и отправлять в чат клавиатуру
