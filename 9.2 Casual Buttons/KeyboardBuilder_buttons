@@ -25,7 +25,7 @@ buttons: list[KeyboardButton] = [KeyboardButton(
                 text=f'Кнопка {i + 1}') for i in range(10)]
 
 # Методами билдера добавляем в него кнопки (возьмем для примера метод row())
-kb_builder.row(*buttons, width=4)
+kb_builder.row(*buttons, width=3)
 """Метод row()
 Метод row у класса ReplyKeyboardBuilder позволяет расположить кнопки клавиатуры автоматически, в зависимости от параметра width - желаемого количества кнопок в ряду. "Лишние" кнопки переносятся на следующий ряд.
 
