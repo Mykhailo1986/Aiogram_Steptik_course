@@ -20,12 +20,22 @@ dp: Dispatcher = Dispatcher()
 # Инициализируем объект билдера
 kb_builder: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
 
-# Создаем список с кнопками (например, 10 кнопок)
-buttons: list[KeyboardButton] = [KeyboardButton(
-                text=f'Кнопка {i + 1}') for i in range(10)]
 
-# Методами билдера добавляем в него кнопки (возьмем для примера метод row())
-kb_builder.row(*buttons, width=3)
+# Создаем первый список с кнопками
+buttons_1: list[KeyboardButton] = [KeyboardButton(
+                text=f'Кнопка {i + 1}') for i in range(6)]
+
+# Создаем второй список с кнопками
+buttons_2: list[KeyboardButton] = [KeyboardButton(
+                text=f'Кнопка {i + 7}') for i in range(4)]
+
+# Распаковываем список с кнопками в билдер, указываем, что
+# в одном ряду должно быть 4 кнопки
+kb_builder.row(*buttons_1, width=4)
+
+# Еще раз распаковываем список с кнопками в билдер, указываем, что
+# теперь в одном ряду должно быть 3 кнопки
+kb_builder.row(*buttons_2, width=3)
 """Метод row()
 Метод row у класса ReplyKeyboardBuilder позволяет расположить кнопки клавиатуры автоматически, в зависимости от параметра width - желаемого количества кнопок в ряду. "Лишние" кнопки переносятся на следующий ряд.
 
