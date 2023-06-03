@@ -1,7 +1,7 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, KeyboardButtonPollType
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 from aiogram import Bot, Dispatcher
-from aiogram.filters import CommandStart, Text
+from aiogram.filters import CommandStart, Text, Command
 from aiogram.types import (KeyboardButton, Message, ReplyKeyboardMarkup,
                            ReplyKeyboardRemove)
 
@@ -45,6 +45,34 @@ keyboard: ReplyKeyboardMarkup = kb_builder.as_markup(
 async def process_start_command(message: Message):
     await message.answer(text='Экспериментируем со специальными кнопками',
                          reply_markup=keyboard)
+
+# Создаем кнопки
+poll_btn_2: KeyboardButton = KeyboardButton(
+                                text='Создать опрос',
+                                request_poll=KeyboardButtonPollType(
+                                                        type='regular'))
+
+quiz_btn: KeyboardButton = KeyboardButton(
+                                text='Создать викторину',
+                                request_poll=KeyboardButtonPollType(
+                                                        type='quiz'))
+
+# Инициализируем билдер
+poll_kb_builder: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
+
+# Добавляем кнопки в билдер
+poll_kb_builder.row(poll_btn_2, quiz_btn, width=1)
+
+# Создаем объект клавиатуры
+poll_keyboard: ReplyKeyboardMarkup = poll_kb_builder.as_markup(
+                                        resize_keyboard=True)
+
+
+# Этот хэндлер будет срабатывать на команду "/poll"
+@dp.message(Command(commands='poll'))
+async def process_poll_command(message: Message):
+    await message.answer(text='Экспериментируем с кнопками опрос/викторина',
+                         reply_markup=poll_keyboard)
 
 if __name__ == '__main__':
     dp.run_polling(bot)
