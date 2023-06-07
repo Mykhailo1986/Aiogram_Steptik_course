@@ -1,4 +1,4 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, KeyboardButtonPollType
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, KeyboardButtonPollType, KeyboardButtonRequestUser
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 from aiogram import Bot, Dispatcher
 from aiogram.filters import CommandStart, Text, Command
@@ -30,7 +30,9 @@ geo_btn: KeyboardButton = KeyboardButton(
 poll_btn: KeyboardButton = KeyboardButton(
                                 text='Создать опрос/викторину',
                                 request_poll=KeyboardButtonPollType())
-
+req_user: KeyboardButton = KeyboardButton(
+                                text='request_user',
+                                request_user=KeyboardButtonRequestUser())
 # Добавляем кнопки в билдер
 kb_builder.row(contact_btn, geo_btn, poll_btn, width=1)
 
