@@ -20,8 +20,11 @@ buttons: list[KeyboardButton] = []
 keyboard: list[list[KeyboardButton]] = []
 
 # Заполняем список списками с кнопками
-keyboard: list[list[KeyboardButton]] = [
-    [KeyboardButton(text=f'Кнопка {i}')] for i in range(1, 351)]
+for i in range(1, 1201):
+    buttons.append(KeyboardButton(text=str(i)))
+    if not i % 12:
+        keyboard.append(buttons)
+        buttons = []
 
 # Создаем объект клавиатуры, добавляя в него список списков с кнопками
 my_keyboard: ReplyKeyboardMarkup = ReplyKeyboardMarkup(
