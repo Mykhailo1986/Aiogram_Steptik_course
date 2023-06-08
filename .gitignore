@@ -63,5 +63,7 @@ docs/html
 
 # pynev
 .python-version
-.env
+
+.idea/
 .vscode/
+.env
