@@ -48,7 +48,7 @@ async def process_start_command(message: Message):
     #                     reply_markup=kb_builder.as_markup())
     """ братите внимание, что параметр resize_keyboard=True, отвечающий за размер кнопок, который мы раньше передавали в ReplyKeyboardMarkup, теперь передается в метод билдера as_markup(), который, по сути, и превращает билдер в объект клавиатуры ReplyKeyboardMarkup."""
     # Reduce the height of the buttons
-    await message.answer_photo(photo="AgACAgIAAxkBAAI_12SF8RPbsNcVCku4SK0jieBT8V75AAIlzDEbXV4xSM8Tr9fTJ-K-AQADAgADcwADLwQ",reply_markup=kb_builder.as_markup())
+    await message.answer_photo(photo="AgACAgIAAxkBAAI_12SF8RPbsNcVCku4SK0jieBT8V75AAIlzDEbXV4xSM8Tr9fTJ-K-AQADAgADcwADLwQ",reply_markup=kb_builder.as_markup(),caption='Dflz')
 
 if __name__ == '__main__':
     dp.run_polling(bot)
